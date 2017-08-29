@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, AppRegistry, Button, StyleSheet, State, Text, View } from 'react-native';
-
+import { StackNavigator } from 'react-navigation';
 
 export default class App extends React.Component {
     constructor(props) {
