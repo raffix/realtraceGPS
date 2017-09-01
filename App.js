@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AppRegistry, Button, StyleSheet, State, Text, View } from 'react-native';
+import { Alert, AppRegistry, Button, StyleSheet, State, Text, Time, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 export default class App extends React.Component {
@@ -7,23 +7,33 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             coletar: 0,
-            intervalor: 1000,
-                    };
+            status : "inativo"
+        };
     }
 
     inicializa(event){
         this.setState({coletar : 1});
+        let cond = 1;
+        do {
+            setTimeout(
+                ()=> {
+                    this.setState({status : "leitura"});
+                }, 3000);
+            cond = this.state.coletar;
+        }while(cond == 1);
+
+        setTimeout(
+            () => {
+                Alert.alert("Acabou");
+                this.setState({ status: "inativa"});
+            }, 1000);
     }
 
     finaliza(){
         this.setState({coletar : 0});
     }
 
-    coletaDados(){
-        while(this.state.coletar == 1){
 
-        }
-    }
 
     render() {
         return (
@@ -43,7 +53,8 @@ export default class App extends React.Component {
                         />
                 </View>
                 <View style={styles.textContainer}>
-                    <Text>Status da leitura: {this.state.coletar}</Text>
+                    <Text>Status da leitura: {this.state.status}</Text>
+                    <Text>Valor coletar: {this.state.coletar}</Text>
                 </View>
               </View>
         );
