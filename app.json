@@ -1,5 +1,8 @@
 {
+  "name": "RealTrace",
+  "displayName": "RealTrace",
   "expo": {
     "sdkVersion": "20.0.0"
   }
+
 }

@@ -1,18 +1,20 @@
 import React from 'react';
 import { Alert, AppRegistry, Button, StyleSheet, State, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import TimerMixin from 'react-timer-mixin';
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             coletar: 0,
-            intervalor: 1000,
+            intervalo: 1000,
                     };
     }
 
     inicializa(event){
         this.setState({coletar : 1});
+        this.coletaDados().bind(this);
     }
 
     finaliza(){
@@ -20,9 +22,14 @@ export default class App extends React.Component {
     }
 
     coletaDados(){
-        while(this.state.coletar == 1){
+      let compare = this.state.coletar;
 
-        }
+      while(compare < 100){
+        this.setTimeout(() =>{
+          compare++;
+          this.setState({coletar : compare});
+        }, 1000);
+      }
     }
 
     render() {
