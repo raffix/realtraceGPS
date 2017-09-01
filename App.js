@@ -13,13 +13,13 @@ export default class App extends React.Component {
 
     inicializa(event){
         this.setState({coletar : 1});
-        let cond = 1;
+        var cond = 1;
         do {
             setTimeout(
                 ()=> {
                     this.setState({status : "leitura"});
+                    cond = this.state.coletar;
                 }, 3000);
-            cond = this.state.coletar;
         }while(cond == 1);
 
         setTimeout(
