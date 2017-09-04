@@ -1,6 +1,7 @@
 import React from 'react';
 import { Alert, AppRegistry, Button, StyleSheet, State, Text, Time, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box';
 
 export default class App extends React.Component {
     constructor(props) {
