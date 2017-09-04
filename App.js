@@ -11,29 +11,28 @@ export default class App extends React.Component {
         };
     }
 
-    inicializa(event){
+    inicializa(){
         this.setState({coletar : 1});
-        var cond = 1;
-        do {
-            setTimeout(
-                ()=> {
-                    this.setState({status : "leitura"});
-                    cond = this.state.coletar;
-                }, 3000);
-        }while(cond == 1);
-
         setTimeout(
-            () => {
-                Alert.alert("Acabou");
-                this.setState({ status: "inativa"});
-            }, 1000);
+          ()=> {
+            this.setState({status : "leitura"});
+            coletar();
+          }, 1000);
+    }
+
+    coletar(){
+      if (this.state.coletar == 1) {
+        setTimeout(
+          () => {
+            //Faz a coleta e salva
+            coletar();
+          }, 3000);
+      }
     }
 
     finaliza(){
         this.setState({coletar : 0});
     }
-
-
 
     render() {
         return (
