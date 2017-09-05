@@ -17,7 +17,7 @@ export default class App extends React.Component {
         setTimeout(
           ()=> {
             this.setState({status : "leitura"});
-            coletar();
+            this.coletar();
           }, 1000);
     }
 
@@ -26,7 +26,7 @@ export default class App extends React.Component {
         setTimeout(
           () => {
             //Faz a coleta e salva
-            coletar();
+            this.coletar();
           }, 3000);
       }
     }
