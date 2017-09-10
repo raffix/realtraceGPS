@@ -1,15 +1,24 @@
 import React from 'react';
-import { Alert, AppRegistry, Button, StyleSheet, State, Text, Time, View } from 'react-native';
+import { Alert, AppRegistry, AsyncStorage, Button, StyleSheet, State, Text, Time, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box';
+
+var STORAGE_KEY = '@MySuperStore:key';
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             coletar: 0,
-            status : "inativo"
+            status : "inativo",
+            intervalo : 1,
+            tempo : 1000
         };
+    }
+
+    atualizaTempo() {
+        let valor = this.state.intervalo * 1000;
+        this.setState({ tempo : valor});
     }
 
     inicializa(){
