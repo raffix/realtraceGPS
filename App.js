@@ -11,7 +11,7 @@ export default class App extends React.Component {
         this.state = {
             coletar: 0,
             status : "inativo",
-            intervalo : 1,
+            intervalo : 5,
             tempo : 1000
         };
     }
@@ -26,6 +26,7 @@ export default class App extends React.Component {
         this.atualizaTempo();
         setTimeout(
           ()=> {
+            ToastAndroid.show("Coleta iniciada", ToastAndroid.SHORT);
             this.setState({status : "leitura"});
             this.coletar();
           }, 1000);
@@ -37,7 +38,6 @@ export default class App extends React.Component {
         setTimeout(
           () => {
             //Faz a coleta e salva
-            ToastAndroid.show("Coleta", ToastAndroid.SHORT);
             this.coletar();
           }, timer);
       }
@@ -62,7 +62,7 @@ export default class App extends React.Component {
                     <Slider
                         style={{ width: 300 }}
                         step={1}
-                        minimumValue={1}
+                        minimumValue={5}
                         maximumValue={30}
                         value={this.state.intervalo}
                         onValueChange={val => this.setState({ intervalo: val })}
