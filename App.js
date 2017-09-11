@@ -45,6 +45,8 @@ export default class App extends React.Component {
 
     finaliza(){
         this.setState({coletar : 0});
+        this.setState({status : "inativa"});
+        ToastAndroid.show("Coleta encerrada", ToastAndroid.SHORT);
     }
 
     getVal(val){
