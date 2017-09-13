@@ -12,7 +12,11 @@ export default class App extends React.Component {
             coletar: 0,
             status : "inativo",
             intervalo : 5,
-            tempo : 1000
+            tempo : 1000,
+            locationsArray: {
+              locations: [
+              ]
+            },
         };
     }
 
@@ -52,6 +56,20 @@ export default class App extends React.Component {
     getVal(val){
         ToastAndroid.show(val + " segundos", ToastAndroid.SHORT);
     }
+
+
+    _locationsTouched = () => {
+       this._saveLocationStorage(JSON.stringify(this.state.locationsArray.locations));
+     }
+
+     _saveLocationStorage = async(locations) => {
+       try {
+         await AsyncStorage.setItem(STORAGE_KEY, locations)
+         this._appendMessage('Saved selection to disk: ' + locations);
+       } catch (error) {
+         this._appendMessage('AsyncStorage error: ' + error.message);
+       }
+     }
 
     render() {
         return (
