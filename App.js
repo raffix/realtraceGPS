@@ -83,7 +83,7 @@ export default class App extends React.Component {
                         style={{ width: 300 }}
                         step={1}
                         minimumValue={5}
-                        maximumValue={30}
+                        maximumValue={40}
                         value={this.state.intervalo}
                         onValueChange={val => this.setState({ intervalo: val })}
                         onSlidingComplete={ val => this.getVal(val)}
