@@ -20,6 +20,23 @@ export default class App extends React.Component {
         };
     }
 
+    enviar(){
+      try {
+        var value = await AsyncStorage.getItem(STORAGE_KEY);
+        if (value !== null){
+          //setting the state will trigger the render inside the list
+          this.setState({
+            locationsArray: {
+              locations: JSON.parse(value)
+            }
+          });
+          this._appendMessage('Recovered selection from disk: ' + value);
+        }
+      } catch (error) {
+        this._appendMessage('AsyncStorage error: ' + error.message);
+      }
+    }
+
     atualizaTempo() {
         let valor = this.state.intervalo * 1000;
         this.setState({ tempo : valor});
@@ -41,7 +58,18 @@ export default class App extends React.Component {
       if (this.state.coletar == 1) {
         setTimeout(
           () => {
-            //Faz a coleta e salva
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                let position : {};
+                this.setState({
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude,
+                  error: null,
+                });
+              },
+              (error) => this.setState({ error: error.message }),
+              { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+            );
             this.coletar();
           }, timer);
       }
