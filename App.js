@@ -35,6 +35,15 @@ export default class App extends React.Component {
       } catch (error) {
         this._appendMessage('AsyncStorage error: ' + error.message);
       }
+
+      if (value.isArray()) {
+        this.send(value);
+      }
+    }
+
+    send(dados) {
+
+      return true;
     }
 
     atualizaTempo() {
