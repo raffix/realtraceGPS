@@ -54,13 +54,29 @@ export default class App extends React.Component {
     inicializa(){
         this.setState({coletar : 1});
         this.atualizaTempo();
+        try {
+          var value = AsyncStorage.getItem(STORAGE_KEY);
+          if (value !== null){
+            //setting the state will trigger the render inside the list
+            this.setState({
+              locationsArray: {
+                locations: JSON.parse(value)
+              }
+            });
+            this._appendMessage('Recovered selection from disk: ' + value);
+          }
+        } catch (error) {
+          this._appendMessage('AsyncStorage error: ' + error.message);
+        }
         setTimeout(
           ()=> {
-            ToastAndroid.show("Coleta iniciada", ToastAndroid.SHORT);
+            this._appendMessage("Coleta iniciada");
             this.setState({status : "leitura"});
             this.coletar();
           }, 1000);
     }
+
+
 
     coletar(){
       let timer = this.state.tempo;
@@ -87,13 +103,8 @@ export default class App extends React.Component {
         this.setState({coletar : 0});
         this.setState({status : "inativa"});
         this._saveLocationStorage(JSON.stringify(this.state.locationsArray.locations));
-        ToastAndroid.show("Coleta encerrada", ToastAndroid.SHORT);
+        this._appendMessage("Coleta encerrada");
     }
-
-    getVal(val){
-        ToastAndroid.show(val + " segundos", ToastAndroid.SHORT);
-    }
-
 
     _locationsTouched = () => {
        this._saveLocationStorage(JSON.stringify(this.state.locationsArray.locations));
@@ -102,11 +113,21 @@ export default class App extends React.Component {
     _saveLocationStorage = async(locations) => {
        try {
          await AsyncStorage.setItem(STORAGE_KEY, locations)
-         ToastAndroid.show('Saved selection to disk: ' + locations, ToastAndroid.SHORT);
+         this._appendMessage('Saved selection to disk: ' + locations);
        } catch (error) {
-         ToastAndroid.show('AsyncStorage error: ' + error.message, ToastAndroid.SHORT);
+         this._appendMessage(('AsyncStorage error: ' + error.message);
        }
-     }
+    }
+
+
+    //Toast
+    getVal(val){
+      ToastAndroid.show(val + " segundos", ToastAndroid.SHORT);
+    }
+
+    _appendMessage(mensagem) {
+      ToastAndroid.show(mensagem, ToastAndroid.SHORT);
+    }
 
     render() {
         return (
