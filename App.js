@@ -22,7 +22,7 @@ export default class App extends React.Component {
 
     enviar(){
       try {
-        var value = await AsyncStorage.getItem(STORAGE_KEY);
+        var value = AsyncStorage.getItem(STORAGE_KEY);
         if (value !== null){
           //setting the state will trigger the render inside the list
           this.setState({
@@ -69,11 +69,10 @@ export default class App extends React.Component {
           () => {
             navigator.geolocation.getCurrentPosition(
               (position) => {
-                let position : {};
+                var locations = this.state.locationsArray.locations;
+                locations.push(position);
                 this.setState({
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                  error: null,
+                  locations: locations
                 });
               },
               (error) => this.setState({ error: error.message }),
@@ -87,6 +86,7 @@ export default class App extends React.Component {
     finaliza(){
         this.setState({coletar : 0});
         this.setState({status : "inativa"});
+        this._saveLocationStorage(JSON.stringify(this.state.locationsArray.locations));
         ToastAndroid.show("Coleta encerrada", ToastAndroid.SHORT);
     }
 
@@ -99,7 +99,7 @@ export default class App extends React.Component {
        this._saveLocationStorage(JSON.stringify(this.state.locationsArray.locations));
      }
 
-     _saveLocationStorage = async(locations) => {
+    _saveLocationStorage = async(locations) => {
        try {
          await AsyncStorage.setItem(STORAGE_KEY, locations)
          this._appendMessage('Saved selection to disk: ' + locations);
@@ -107,6 +107,11 @@ export default class App extends React.Component {
          this._appendMessage('AsyncStorage error: ' + error.message);
        }
      }
+
+    _appendMessage = (message) => {
+      console.log(message);
+      this.setState({messages: this.state.messages.concat(message)});
+    }
 
     render() {
         return (
