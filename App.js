@@ -102,16 +102,11 @@ export default class App extends React.Component {
     _saveLocationStorage = async(locations) => {
        try {
          await AsyncStorage.setItem(STORAGE_KEY, locations)
-         this._appendMessage('Saved selection to disk: ' + locations);
+         ToastAndroid.show('Saved selection to disk: ' + locations, ToastAndroid.SHORT);
        } catch (error) {
-         this._appendMessage('AsyncStorage error: ' + error.message);
+         ToastAndroid.show('AsyncStorage error: ' + error.message, ToastAndroid.SHORT);
        }
      }
-
-    _appendMessage = (message) => {
-      console.log(message);
-      this.setState({messages: this.state.messages.concat(message)});
-    }
 
     render() {
         return (
