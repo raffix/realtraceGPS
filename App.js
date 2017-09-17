@@ -20,7 +20,7 @@ export default class App extends React.Component {
         };
     }
 
-    enviar(){
+    loadData(){
       try {
         var value = AsyncStorage.getItem(STORAGE_KEY);
         if (value !== null){
@@ -35,6 +35,10 @@ export default class App extends React.Component {
       } catch (error) {
         this._appendMessage('AsyncStorage error: ' + error.message);
       }
+    }
+
+    enviar(){
+      this.loadData();
 
       if (value.isArray()) {
         this.send(value);
@@ -54,20 +58,8 @@ export default class App extends React.Component {
     inicializa(){
         this.setState({coletar : 1});
         this.atualizaTempo();
-        try {
-          var value = AsyncStorage.getItem(STORAGE_KEY);
-          if (value !== null){
-            //setting the state will trigger the render inside the list
-            this.setState({
-              locationsArray: {
-                locations: JSON.parse(value)
-              }
-            });
-            this._appendMessage('Recovered selection from disk: ' + value);
-          }
-        } catch (error) {
-          this._appendMessage('AsyncStorage error: ' + error.message);
-        }
+        this.loadData();
+
         setTimeout(
           ()=> {
             this._appendMessage("Coleta iniciada");
