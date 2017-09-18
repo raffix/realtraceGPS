@@ -17,6 +17,7 @@ export default class App extends React.Component {
               locations: [
               ]
             },
+            ultima: '',
         };
     }
 
@@ -79,6 +80,7 @@ export default class App extends React.Component {
               (position) => {
                 var locations = this.state.locationsArray.locations;
                 locations.push(position);
+                this.setState({ultima : position});
                 this.setState({
                   locations: locations
                 });
@@ -107,7 +109,7 @@ export default class App extends React.Component {
          await AsyncStorage.setItem(STORAGE_KEY, locations)
          this._appendMessage('Saved selection to disk: ' + locations);
        } catch (error) {
-         this._appendMessage(('AsyncStorage error: ' + error.message);
+         this._appendMessage('AsyncStorage error: ' + error.message);
        }
     }
 
@@ -152,6 +154,7 @@ export default class App extends React.Component {
                 </View>
                 <View style={styles.textContainer}>
                     <Text>Status da leitura: {this.state.status}</Text>
+                    <Text>Ultima posição: {this.state.ultima.latitude.toString()}</Text>
                 </View>
               </View>
         );
