@@ -59,7 +59,7 @@ export default class App extends React.Component {
     inicializa(){
         this.setState({coletar : 1});
         this.atualizaTempo();
-        this.loadData();
+        //this.loadData();
 
         setTimeout(
           ()=> {
@@ -80,10 +80,13 @@ export default class App extends React.Component {
               (position) => {
                 var locations = this.state.locationsArray.locations;
                 locations.push(position);
-                this.setState({ultima : position});
+
                 this.setState({
                   locations: locations
                 });
+
+                position = this.state.locationsArray.locations.lenght;
+                this.setState({ultima : position});
               },
               (error) => this.setState({ error: error.message }),
               { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
@@ -99,11 +102,7 @@ export default class App extends React.Component {
         this._saveLocationStorage(JSON.stringify(this.state.locationsArray.locations));
         this._appendMessage("Coleta encerrada");
     }
-
-    _locationsTouched = () => {
-       this._saveLocationStorage(JSON.stringify(this.state.locationsArray.locations));
-     }
-
+    
     _saveLocationStorage = async(locations) => {
        try {
          await AsyncStorage.setItem(STORAGE_KEY, locations)
@@ -121,6 +120,7 @@ export default class App extends React.Component {
 
     _appendMessage(mensagem) {
       ToastAndroid.show(mensagem, ToastAndroid.SHORT);
+      console.log(mensagem);
     }
 
     render() {
@@ -154,7 +154,7 @@ export default class App extends React.Component {
                 </View>
                 <View style={styles.textContainer}>
                     <Text>Status da leitura: {this.state.status}</Text>
-                    <Text>Ultima posição: {this.state.ultima.latitude.toString()}</Text>
+                    <Text>Ultima posição: {this.state.ultima}</Text>
                 </View>
               </View>
         );
