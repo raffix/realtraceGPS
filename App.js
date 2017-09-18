@@ -31,10 +31,10 @@ export default class App extends React.Component {
               locations: JSON.parse(value)
             }
           });
-          this._appendMessage('Recovered selection from disk: ' + value);
+          this.logs('Recovered selection from disk: ' + value);
         }
       } catch (error) {
-        this._appendMessage('AsyncStorage error: ' + error.message);
+        this.logs('AsyncStorage error: ' + error.message);
       }
     }
 
@@ -59,11 +59,11 @@ export default class App extends React.Component {
     inicializa(){
         this.setState({coletar : 1});
         this.atualizaTempo();
-        //this.loadData();
+        this.loadData();
 
         setTimeout(
           ()=> {
-            this._appendMessage("Coleta iniciada");
+            this.logs("Coleta iniciada");
             this.setState({status : "leitura"});
             this.coletar();
           }, 1000);
@@ -100,25 +100,24 @@ export default class App extends React.Component {
         this.setState({coletar : 0});
         this.setState({status : "inativa"});
         this._saveLocationStorage(JSON.stringify(this.state.locationsArray.locations));
-        this._appendMessage("Coleta encerrada");
+        this.logs("Coleta encerrada");
     }
-    
+
     _saveLocationStorage = async(locations) => {
        try {
          await AsyncStorage.setItem(STORAGE_KEY, locations)
-         this._appendMessage('Saved selection to disk: ' + locations);
+         this.logs('Saved selection to disk: ' + locations);
        } catch (error) {
-         this._appendMessage('AsyncStorage error: ' + error.message);
+         this.logs('AsyncStorage error: ' + error.message);
        }
     }
 
-
     //Toast
-    getVal(val){
+    toast(val){
       ToastAndroid.show(val + " segundos", ToastAndroid.SHORT);
     }
 
-    _appendMessage(mensagem) {
+    logs(mensagem) {
       ToastAndroid.show(mensagem, ToastAndroid.SHORT);
       console.log(mensagem);
     }
