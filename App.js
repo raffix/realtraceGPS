@@ -40,7 +40,7 @@ export default class App extends React.Component {
 
     enviar(){
       this.loadData();
-
+      let value = this.state.locationsArray;
       if (value.isArray()) {
         this.send(value);
       }
