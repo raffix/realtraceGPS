@@ -25,5 +25,8 @@
     "react-native-android-location-services-dialog-box": "^2.2.1",
     "react-native-level-fs": "^3.0.0",
     "react-navigation": "^1.0.0-beta.11"
+  },
+  "browser": {
+    "fs": "react-native-level-fs"
   }
 }

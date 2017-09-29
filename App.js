@@ -47,7 +47,14 @@ export default class App extends React.Component {
     }
 
     send(dados) {
-
+      var fs = require('fs');
+      fs.mkdir('/home', function() {
+      	fs.writeFile('/home/hello-world.txt', dados, function() {
+      		fs.readFile('/home/hello-world.txt', 'utf-8', function(err, data) {
+      			console.log(data);
+      		});
+      	});
+      });
       return true;
     }
 
