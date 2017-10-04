@@ -48,9 +48,11 @@ export default class App extends React.Component {
 
     send(dados) {
       var fs = require('fs');
-      fs.mkdir('/home', function() {
-      	fs.writeFile('/home/hello-world.txt', dados, function() {
-      		fs.readFile('/home/hello-world.txt', 'utf-8', function(err, data) {
+      var today = new Date();
+      var path = "/home/realtrace/";
+      fs.mkdir(path, function() {
+      	fs.writeFile(path+'coleta'+today.getDate()+'.txt', dados, function() {
+      		fs.readFile(path+'coleta'+today.getDate()+'.txt', 'utf-8', function(err, data) {
       			console.log(data);
       		});
       	});
