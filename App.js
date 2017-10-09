@@ -54,31 +54,7 @@ export default class App extends React.Component {
     }
   }
 
-  enviar() {
-    this.loadData();
-    var value = this.state.locationsArray;
-    if (value.lenght > 0) {
-      this.logs("Dados a enviar");
-      return this.send(value);
-    }
-    this.logs("Nenhum dado a enviar");
-    return false;
-  }
-
-  send(dados) {
-    var host = this.state.host;
-    return fetch(host, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        gps: dados
-      })
-    });
-  }
-
+  //Coleta
   atualizaTempo() {
     let valor = this.state.intervalo * 1000;
     this.setState({ tempo: valor });
@@ -137,6 +113,33 @@ export default class App extends React.Component {
       this.logs("AsyncStorage error: " + error.message);
     }
   };
+
+
+  //Envio
+  enviar() {
+    this.loadData();
+    var value = this.state.locationsArray;
+    if (value.lenght > 0) {
+      this.logs("Dados a enviar");
+      return this.send(value);
+    }
+    this.logs("Nenhum dado a enviar");
+    return false;
+  }
+
+  send(dados) {
+    var host = this.state.host;
+    return fetch(host, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        gps: dados
+      })
+    });
+  }
 
   //Toast
   toast(val) {
