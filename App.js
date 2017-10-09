@@ -29,7 +29,8 @@ export default class App extends React.Component {
       locationsArray: {
         locations: []
       },
-      ultima: ""
+      ultima: "",
+      host: "http://meusite.com.br",
     };
   }
 
@@ -65,7 +66,7 @@ export default class App extends React.Component {
   }
 
   send(dados) {
-    var host = "http://meusite.com.br";
+    var host = this.state.host;
     return fetch(host, {
       method: "POST",
       headers: {
@@ -178,6 +179,10 @@ export default class App extends React.Component {
           <Text>Ultima posição: {this.state.ultima}</Text>
         </View>
         <View style={styles.sendContainer}>
+          <TextInput
+           style={{height: 40}}
+           onChangeText={(text) => this.setState({host:text})}
+          />
           <Button
             onPress={this.enviar.bind(this)}
             title="Enviar"
