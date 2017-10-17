@@ -30,7 +30,7 @@ export default class App extends React.Component {
         locations: []
       },
       ultima: "",
-      host: "http://meusite.com.br",
+      host: "http://meusite.com.br"
     };
   }
 
@@ -114,7 +114,6 @@ export default class App extends React.Component {
     }
   };
 
-
   //Envio
   enviar() {
     this.loadData();
@@ -136,7 +135,7 @@ export default class App extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        gps: dados
+        dados: dados
       })
     });
   }
@@ -183,8 +182,8 @@ export default class App extends React.Component {
         </View>
         <View style={styles.sendContainer}>
           <TextInput
-           style={{height: 40}}
-           onChangeText={(text) => this.setState({host:text})}
+            style={{ height: 40 }}
+            onChangeText={text => this.setState({ host: text })}
           />
           <Button
             onPress={this.enviar.bind(this)}
