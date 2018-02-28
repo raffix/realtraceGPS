@@ -41,7 +41,6 @@ export default class App extends React.Component {
     try {
       var value = AsyncStorage.getItem(STORAGE_KEY);
       if (value !== null) {
-        //setting the state will trigger the render inside the list
         this.setState({
           locationsArray: {
             locations: JSON.parse(value)
